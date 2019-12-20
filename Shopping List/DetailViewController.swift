@@ -15,10 +15,16 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var personNameTextField: UITextField!
     @IBOutlet weak var personAddressTextField: UITextField!
     
+    var itemCount = 0
+    var personName = ""
+    var personAddress = ""
+    
     @IBAction func sendOrderButton(_ sender: UIButton) {
-        print("send order")
+        print("send order pressed")
         // Check if text exists and not empty
-        
+        guard let name = personNameTextField.text, let address = personAddressTextField.text, !name.isEmpty, !address.isEmpty else {return}
+        personName = name
+        personAddress = address
         showAlert()
     }
     
@@ -31,6 +37,10 @@ class DetailViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        //itemsInListLabel.text = "\(itemCount)"
+    }
+    
     /*
      In the detail view controller, add a button "Submit Order" that creates a UIAlert saying the user's order will be delivered in 15 minutes to the user's address.
      
@@ -40,7 +50,7 @@ class DetailViewController: UIViewController {
      */
     
     func showAlert() {
-        let alert = UIAlertController(title: "Title with user name", message: "message with address", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Order Placed!", message: "\(personName), your order will be shipped to \(personAddress) \n Thank You!", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: goBackHandler(alert:))) // handler runs after OK
         present(alert, animated: true, completion: nil)
     }

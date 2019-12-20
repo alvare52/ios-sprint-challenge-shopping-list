@@ -19,4 +19,6 @@ class ShoppingItemController {
                                          ShoppingItem(name: "Strawberries", hasBeenAdded: false, imageName: "Strawberries")
                                          ]
     
+    
 }
+

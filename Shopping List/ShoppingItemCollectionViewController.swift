@@ -8,9 +8,11 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+//private let reuseIdentifier = "Cell"
 
 class ShoppingItemCollectionViewController: UICollectionViewController {
+    
+    let shoppingItemController = ShoppingItemController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,39 +21,60 @@ class ShoppingItemCollectionViewController: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
+        
     }
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "ShowDetailSegue" {
+            print("Test") // should pass count of items in list
+            guard let indexPath = collectionView?.indexPathsForSelectedItems?.first?.item,
+                let detailVC = segue.destination as? DetailViewController else {return}
+            
+            let selectedItem = shoppingItemController.shoppingItems[indexPath]
+            
+            
+            
+            
+        }
+        
+//        if segue.identifier == "ShowMansionSegue" {
+//            // Check which cell we tapped and then cast down the VC that it goes to
+//            guard let indexPath = collectionView.indexPathsForSelectedItems?.first?.item,
+//                let selectMansionVC = segue.destination as? MansionDetailViewController else {return}
+//
+//            let selectMansion = mansionController.mansions[indexPath]
+//            selectMansionVC.mansion = selectMansion
+//        }
+        
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
     }
-    */
 
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 0
+        return shoppingItemController.shoppingItems.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShoppingItemCell", for: indexPath) as? ShoppingItemCollectionViewCell else {return UICollectionViewCell()}
     
-        // Configure the cell
-    
+        let item = shoppingItemController.shoppingItems[indexPath.item]
+        cell.shoppingItem = item
         return cell
     }
 

@@ -21,8 +21,9 @@ class ShoppingItemCollectionViewCell: UICollectionViewCell {
     }
     
     func updateViews() {
-        
+        guard let item = shoppingItem else {return}
+        nameLabel.text = item.name
+        imageView.image = item.image
+        // if hasBeenAdded == ...
     }
-    
-    
 }
