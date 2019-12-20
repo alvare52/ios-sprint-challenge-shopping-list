@@ -8,6 +8,11 @@
 
 import UIKit
 
+// unused
+protocol DetailDelegate {
+    func boolChanged(shoppingItem: ShoppingItem)
+}
+
 class DetailViewController: UIViewController {
     
     
@@ -18,6 +23,8 @@ class DetailViewController: UIViewController {
     var itemCount = 0
     var personName = ""
     var personAddress = ""
+    
+    var delegate: DetailDelegate?
     
     @IBAction func sendOrderButton(_ sender: UIButton) {
         print("send order pressed")
@@ -38,7 +45,7 @@ class DetailViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        //itemsInListLabel.text = "\(itemCount)"
+        //itemsInListLabel.text =
     }
     
     /*
